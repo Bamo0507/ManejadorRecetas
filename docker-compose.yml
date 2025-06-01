@@ -1,0 +1,18 @@
+services:
+  
+  backend:
+    ports:
+      - "3000:3000"
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    command: sh -c "npx drizzle-kit push && npm run dev"
+    
+  postgres:
+    image: postgres:16.8
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: recetas
