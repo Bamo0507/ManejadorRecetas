@@ -12,6 +12,8 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
+    "db:push": "drizzle-kit push",
+    "db:studio": "pnpm drizzle-kit studio",
     "run:triggers": "ts-node src/db/triggers.ts",
     "postbuild": "npm run run:triggers"
   },
