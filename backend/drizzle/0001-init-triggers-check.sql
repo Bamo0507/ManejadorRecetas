@@ -127,3 +127,21 @@ BEGIN
 	cant_veces_usado DESC;
 END;
 $$;
+
+-- CHECKS -- Drizzle lamentablemente no deja definir checks al declarar las entidades
+-- toca hacerlas a mano como los triggers
+
+-- 1) En la tabla Recetas: tiempo_completacion > 0
+ALTER TABLE "Recetas"
+  ADD CONSTRAINT chk_recetas_tiempo_completacion_positive
+    CHECK (tiempo_completacion > 0);
+
+-- 2) En la tabla Receta_ingredientes: cantidad > 0
+ALTER TABLE "Receta_ingredientes"
+  ADD CONSTRAINT chk_receta_ingredientes_cantidad_positive
+    CHECK (cantidad > 0);
+
+-- 3) En la tabla Valoraciones: valoracion entre 1 y 5
+ALTER TABLE "Valoraciones"
+  ADD CONSTRAINT chk_valoraciones_valoracion_range
+    CHECK (valoracion BETWEEN 1 AND 5);

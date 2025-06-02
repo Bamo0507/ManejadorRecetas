@@ -12,7 +12,7 @@ async function runTriggers() {
     await client.connect();
     const db = drizzle(client);
 
-    const sql = await fs.readFile('drizzle/0001-init-triggers.sql', 'utf8');
+    const sql = await fs.readFile('drizzle/0001-init-triggers-check.sql', 'utf8');
 
     await client.query(sql);
 
