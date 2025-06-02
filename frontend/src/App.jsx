@@ -24,9 +24,6 @@ function App() {
         {seccion === 'recetas' && (
           <RecetasSection currentUserId={Number(currentUserId)} />
         )}
-        {seccion === 'reportes' && (
-          <ReportesSection currentUserId={Number(currentUserId)} />
-        )}
       </main>
     </div>
   );

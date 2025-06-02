@@ -11,9 +11,6 @@ export default function Header({ currentUserId, onChangeUser, onSelectSection })
           <button onClick={() => onSelectSection('recetas')} className="text-gray-600 hover:text-gray-900">
             Recetas
           </button>
-          <button onClick={() => onSelectSection('reportes')} className="text-gray-600 hover:text-gray-900">
-            Reportes
-          </button>
         </nav>
 
         <UserSelector currentUserId={currentUserId} onChangeUser={onChangeUser} />
