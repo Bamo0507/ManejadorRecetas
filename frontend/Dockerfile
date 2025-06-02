@@ -1,18 +1,17 @@
-# etapa de build
-FROM node:18-alpine AS build
+FROM node:18-alpine AS builder
 WORKDIR /app
 
-# copia e instala deps
-COPY package*.json ./
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
+COPY package.json package-lock.json ./  
+
 RUN npm install
 
-# copia código y genera build
 COPY . .
 RUN npm run build
 
-# etapa de producción: sirve el build con nginx
-FROM nginx:stable-alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-
-EXPOSE 8888
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

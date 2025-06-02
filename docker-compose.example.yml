@@ -5,11 +5,11 @@ services:
     image: postgres:16.8
     container_name: recetas-db
     ports:
-      - "5436:5432"
+      - "${POSTGRES_PORT}:5432"
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: recetas
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - db_data:/var/lib/postgresql/data
 
@@ -17,16 +17,16 @@ services:
     build: ./backend
     container_name: recetas-backend
     ports:
-      - "3000:3000"
+      - "${BACKEND_PORT}:3000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
     volumes:
       - ./backend:/app
-    env_file:
-      - ./backend/.env
     
     command: >
       sh -c "
         echo 'Esperando a que Postgres esté arriba…';
-        until pg_isready -h postgres -p 5432 -U root; do
+        until pg_isready -h postgres -p 5432 -U ${POSTGRES_USER}; do
           sleep 1;
         done;
         echo 'Postgres listo';
@@ -41,10 +41,14 @@ services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+    container_name: recetas-frontend
+    ports:
+      - "${FRONTEND_PORT}:80"
     depends_on:
       - backend
-    ports:
-      - "8765:80"
 
 volumes:
   db_data:

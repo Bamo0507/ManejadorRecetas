@@ -1,6 +1,9 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 
+import dotenv from 'dotenv';
+import path from 'path';
+
 import dinoRoutes from './routes/apiExample';
 import recetaRoutes from './routes/endPointsRecetas';
 import ingredienteRoutes from './routes/endPointsIngredientes';
@@ -12,6 +15,8 @@ import alergiaRoutes from './routes/endPointsAlergias';
 import utensilioRoutes from './routes/endPointsUtensilios';
 import recetaRelacionesRoutes from './routes/endpointsRecetasRelaciones';
 import unidadesRoutes from './routes/endPointsUnidades';
+
+dotenv.config({path: path.resolve(__dirname, "../.env")})
 
 const app = express();
 const PORT = process.env.PORT || 3000;
