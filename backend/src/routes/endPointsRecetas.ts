@@ -42,17 +42,14 @@ const recetasEjemplo: Receta[] = [
     }
 ];
 
-//recetas.push(...recetasEjemplo); // Remove this line when orm is implemented
-
 // Obtener todas las recetas
-router.get("/recetas", (req: Request, res: Response) => {
-    getRecetasView()
-    .then((recetasFromDb) => {
-        res.json(recetasFromDb);
-    })
-    .catch((error) => {
-        res.status(500).json({ message: "Error al obtener recetas", error });
-    });
+router.get('/recetas', (req: Request, res: Response) => {
+  const userId = parseInt(req.query.userId as string) || 0;
+  getRecetasView(userId)
+    .then((recetas) => res.json(recetas))
+    .catch((error) =>
+      res.status(500).json({ message: 'Error al obtener recetas', error })
+    );
 });
 
 // Crear una nueva receta
@@ -70,7 +67,7 @@ router.post("/recetas", (req: Request, res: Response) => {
   };
   postReceta(newReceta)
   .then((dbResponse)=>{
-    newReceta.id = dbResponse.id; // Assign the ID returned from the database
+    newReceta.id = dbResponse.id;
     res.status(201).json(newReceta);
   })
   .catch((error)=>{
@@ -79,17 +76,13 @@ router.post("/recetas", (req: Request, res: Response) => {
 });
 
 // Actualizar una receta por ID
-router.patch("/recetas/:id", (req: Request, res: Response) => {
+router.patch('/recetas/:id', (req: Request, res: Response) => {
   const recetaId = parseInt(req.params.id);
   const recetaNombre = req.body.nombre;
   const recetaDescripcion = req.body.descripcion;
   updateReceta(recetaId, recetaNombre, recetaDescripcion)
-  .then((dbResponse) => {
-    res.status(200).json({ message: "Receta actualizada correctamente" });
-  })
-  .catch((error) => {
-    res.status(404).json({ message: "Receta no encontrada" });
-  });
+    .then(() => res.json({ message: 'Receta actualizada correctamente' }))
+    .catch((err) => res.status(404).json({ message: 'Receta no encontrada', err }));
 });
 
 // Eliminar una receta por ID
@@ -104,39 +97,25 @@ router.delete("/recetas/:id", (req: Request, res: Response) => {
   });
 });
 
-router.get("/recetas/:id/ingredientes", (req: Request, res: Response) => {
+router.get('/recetas/:id/ingredientes', (req: Request, res: Response) => {
   const recetaId = parseInt(req.params.id);
   getIngredientesReceta(recetaId)
-    .then((ingredientes) => {
-      res.json(ingredientes);
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "Error al obtener ingredientes", error });
-    });
+    .then((ing) => res.json(ing))
+    .catch((err) => res.status(500).json({ message: 'Error al obtener ingredientes', err }));
 });
 
-router.get("/recetas/:id/alergias", (req: Request, res: Response) => {
+router.get('/recetas/:id/alergias', (req: Request, res: Response) => {
   const recetaId = parseInt(req.params.id);
   getAlergiasReceta(recetaId)
-    .then((alergias) => {
-      res.json(alergias);
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "Error al obtener alergias", error });
-    }
-    );
+    .then((alg) => res.json(alg))
+    .catch((err) => res.status(500).json({ message: 'Error al obtener alergias', err }));
 });
 
-router.get("/recetas/:id/utensilios", (req: Request, res: Response) => {
+router.get('/recetas/:id/utensilios', (req: Request, res: Response) => {
   const recetaId = parseInt(req.params.id);
   getUtensiliosReceta(recetaId)
-    .then((utensilios) => {
-      res.json(utensilios);
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "Error al obtener utensilios", error });
-    }
-    );
+    .then((ut) => res.json(ut))
+    .catch((err) => res.status(500).json({ message: 'Error al obtener utensilios', err }));
 });
 
 export default router;

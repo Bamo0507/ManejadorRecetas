@@ -1,12 +1,10 @@
 import { Router, Request, Response } from "express";
 import { Ingrediente , IngredienteGet } from "../models/Ingredientes";
 import { deleteIngrediente, getIngredientesView, postIngrediente, updateIngrediente } from "../orm/ormIngredientes";
-import { ne } from "drizzle-orm";
 
 const router = Router();
 
 const ingredientes: Ingrediente[] = [];
-
 
 // Obtener todas las recetas
 router.get("/ingredientes", (req: Request, res: Response) => {
@@ -27,7 +25,7 @@ router.post("/ingredientes", (req: Request, res: Response) => {
   };
   postIngrediente(newIngrediente)
   .then((dbResponse)=>{
-    newIngrediente.id = dbResponse.id; // Assign the ID returned from the database
+    newIngrediente.id = dbResponse.id;
     res.status(201).json(newIngrediente);
   })
   .catch((error)=>{
@@ -39,7 +37,9 @@ router.post("/ingredientes", (req: Request, res: Response) => {
 router.patch("/ingredientes/:id", (req: Request, res: Response) => {
   const ingredienteId = parseInt(req.params.id);
   const ingredienteNombre = req.body.nombre;
+
   updateIngrediente(ingredienteId, ingredienteNombre)
+
   .then((dbResponse) => {
     res.status(200).json({ message: "Ingrediente actualizado correctamente" });
   })

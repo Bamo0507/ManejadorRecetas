@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16.8
+    container_name: recetas-db
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: recetas
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: recetas-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    
+    command: >
+      sh -c "
+        echo 'Esperando a que Postgres esté arriba…';
+        until pg_isready -h postgres -p 5432 -U root; do
+          sleep 1;
+        done;
+        echo 'Postgres listo';
+        npm install;
+        npx drizzle-kit push;
+        npm run run:triggers;
+        npm run dev;
+      "
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8765:80"
+
+volumes:
+  db_data:

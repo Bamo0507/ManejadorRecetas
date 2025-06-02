@@ -4,15 +4,15 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
 	IF NEW.nombre IS DISTINCT FROM OLD.nombre THEN
-		INSERT INTO "Historial_recetas"(id, id_receta, atributo_modificado, valor_anterior, valor_nuevo, realizado_en)
+		INSERT INTO "Historial_recetas"(id_receta, atributo_modificado, valor_anterior, valor_nuevo, realizado_en)
 		VALUES
-			(OLD.id, OLD.id, 'descripcion', OLD.descripcion, NEW.descripcion, CURRENT_TIMESTAMP);
+			(OLD.id, 'nombre', OLD.nombre, NEW.nombre, CURRENT_TIMESTAMP);
 	END IF;
 
 	IF NEW.descripcion IS DISTINCT FROM OLD.descripcion THEN
-		INSERT INTO "Historial_recetas"(id, id_receta, atributo_modificado, valor_anterior, valor_nuevo, realizado_en)
+		INSERT INTO "Historial_recetas"(id_receta, atributo_modificado, valor_anterior, valor_nuevo, realizado_en)
 		VALUES
-			(OLD.id, OLD.id, 'descripcion', OLD.descripcion, NEW.descripcion, CURRENT_TIMESTAMP);
+			(OLD.id, 'descripcion', OLD.descripcion, NEW.descripcion, CURRENT_TIMESTAMP);
 	END IF;
 
 	RETURN NEW;
@@ -55,9 +55,9 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
 	IF NEW.nombre IS DISTINCT FROM OLD.nombre THEN
-		INSERT INTO "Historial_ingredientes" (id, id_ingrediente, nombre_anterior, nombre_nuevo, realizado_en)
+		INSERT INTO "Historial_ingredientes" (id_ingrediente, nombre_anterior, nombre_nuevo, realizado_en)
 		VALUES
-			(OLD.id, OLD.id, OLD.nombre, NEW.nombre, CURRENT_TIMESTAMP);
+			(OLD.id, OLD.nombre, NEW.nombre, CURRENT_TIMESTAMP);
 	END IF;
 
 	RETURN NEW;

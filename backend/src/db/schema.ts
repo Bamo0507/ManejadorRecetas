@@ -49,7 +49,7 @@ export const recetasTable = pgTable("Recetas", {
   nivel_picante: nivelPicanteEnum("nivel_picante").notNull().default("NULO"),
   fecha_creacion: timestamp("fecha_creacion", { withTimezone: false }).notNull().defaultNow(), // timestamp
   tiempo_completacion: integer("tiempo_completacion").notNull(), // check > 0
-  creado_por: integer("creado_por").notNull(), // ref to Usuarios.id
+  creado_por: integer("creado_por").notNull(), 
 });
 
 export const recetaCategoriasTable = pgTable("Receta_categorias", {

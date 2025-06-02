@@ -1,18 +1,39 @@
-import express, { Request, Response } from "express";
-import dinoRoutes from "./routes/apiExample";
-import recetaRoutes from "./routes/endPointsRecetas"; // Assuming you have a similar route file for recetas
-import ingredienteRoutes from "./routes/endPointsIngredientes"; // Assuming you have a similar route file for ingredientes
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+
+import dinoRoutes from './routes/apiExample';
+import recetaRoutes from './routes/endPointsRecetas';
+import ingredienteRoutes from './routes/endPointsIngredientes';
+import comentValRoutes from './routes/endPointsComentVal';
+import favoritoRoutes from './routes/endPointsFavoritos';
+import usuariosRoutes from './routes/endPointsUsuarios';
+import historialRoutes from './routes/endPointsHistorial';
+import alergiaRoutes from './routes/endPointsAlergias';
+import utensilioRoutes from './routes/endPointsUtensilios';
+import recetaRelacionesRoutes from './routes/endpointsRecetasRelaciones';
+import unidadesRoutes from './routes/endPointsUnidades';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use("/test", dinoRoutes);
-app.use("/api", recetaRoutes); // replace bookRoutes with your actual route handler for entityone
-app.use("/api", ingredienteRoutes); // Uncomment and replace with your actual route handler for entityone
-// app.use("/entitytwo", bookRoutes); // Uncomment and replace with your actual route handler for entitytwo
+app.use(cors());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Recetas Api esta funcionando");
+app.use('/test', dinoRoutes);
+app.use('/api', recetaRoutes);
+app.use('/api', ingredienteRoutes);
+app.use('/api', comentValRoutes);
+app.use('/api', favoritoRoutes);
+app.use('/api', favoritoRoutes);
+app.use('/api', usuariosRoutes);
+app.use('/api', historialRoutes);
+app.use('/api', alergiaRoutes);
+app.use('/api', utensilioRoutes);
+app.use('/api', recetaRelacionesRoutes)
+app.use('/api', unidadesRoutes);
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Recetas API está funcionando');
 });
 
 app.listen(PORT, () => {

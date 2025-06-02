@@ -14,12 +14,17 @@ async function runTriggers() {
 
     const sql = await fs.readFile('drizzle/0001-init-triggers.sql', 'utf8');
 
-    // Drizzle doesn't support multiple statements in a single `execute`, so use pg directly
     await client.query(sql);
 
-    console.log('✅ Triggers and functions applied successfully');
+    console.log('Triggers and functions applied successfully');
+
+
+    const dataSql = await fs.readFile('drizzle/0002-init-data.sql', 'utf8');
+    await client.query(dataSql);
+    console.log('Data applied successfully');
+
   } catch (err) {
-    console.error('❌ Error applying triggers:', err);
+    console.error('Error applying triggers:', err);
   } finally {
     await client.end();
   }

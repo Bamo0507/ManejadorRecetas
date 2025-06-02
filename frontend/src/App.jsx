@@ -6,34 +6,30 @@ import RecetasSection from '@components/Recetas/RecetasSection'
 import '@styles/global.css'
 
 function App() {
-  const [currentUserId, setCurrentUserId] = useState('');
+  const [currentUserId, setCurrentUserId] = useState('1');
   const [seccion, setSeccion] = useState('ingredientes');
 
   return (
-    <div className="w-full min-h-screen flex flex-col">
-
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <Header
         currentUserId={currentUserId}
         onChangeUser={setCurrentUserId}
         onSelectSection={setSeccion}
       />
 
-      <main className="flex-grow p-4 flex items-center flex-col">
+      <main className="p-6 w-full">
         {seccion === 'ingredientes' && (
-          <IngredientesSection currentUserId={currentUserId} />
+          <IngredientesSection currentUserId={Number(currentUserId)} />
         )}
-
         {seccion === 'recetas' && (
-          <RecetasSection currentUserId={currentUserId} />
+          <RecetasSection currentUserId={Number(currentUserId)} />
         )}
-        
         {seccion === 'reportes' && (
-          <ReportesSection currentUserId={currentUserId} />
+          <ReportesSection currentUserId={Number(currentUserId)} />
         )}
       </main>
     </div>
-  
-  )
+  );
 
 };
 

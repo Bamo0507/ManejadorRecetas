@@ -27,13 +27,12 @@ export default function IngredientesSection({currentUserId}) {
     }, []);
 
     return (
-        <div className="w-full flex flex-col container items-center justify-center">
+        <div className="w-full max-w-6xl mx-auto px-4 flex flex-col items-center">
 
             <h1 className="text-2xl font-extrabold mb-4">Ingredientes</h1>
-
             {/* Formulario de creación de ingredientes */}
             <div className="mb-6">
-                <IngredienteForm onSucess={fetchIngredientes} currentUserId={currentUserId} />
+                <IngredienteForm onSuccess={fetchIngredientes} currentUserId={currentUserId} />
             </div>
 
             {/* Loading o error */}
@@ -42,11 +41,8 @@ export default function IngredientesSection({currentUserId}) {
             ) : error ? (
                 <p className="text-red-500">Error: {error.message}</p>
             ) : (
-                // Listado de ingredientes
                 <IngredienteList ingredientes={ingredientes} reload={fetchIngredientes}/>
             )}
-
-
         </div>
     )
 }
