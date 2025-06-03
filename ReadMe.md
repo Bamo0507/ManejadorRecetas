@@ -87,14 +87,26 @@ Se debe contar con Docker instalado para poder levantar los contenedores y así 
 
 **Pasos a Seguir:**
 
-1. Guardar el docker-compose.example.yml como docker-compose.yml, y aquí se pueden actualizar los puertos que se utilizan en el contenedor, los que se utilizarán de forma local se definen en el .env
+1. Clonar el proyecto:
+
+```bash
+git clone git@github.com:Bamo0507/ManejadorRecetas.git
+```
+
+2. Navegar a la carpeta del proyecto:
+
+```bash
+cd ManejadorRecetas
+```
+
+3. Guardar el docker-compose.example.yml como docker-compose.yml, y aquí se pueden actualizar los puertos que se utilizan en el contenedor, los que se utilizarán de forma local se definen en el .env
 
 ```bash
 # Guardar el archivo de ejemplo como archivo de configuración activo
 cp docker-compose.example.yml docker-compose.yml
 ```
 
-2. Guardar el .env.example como .env, y aquí se debe garantizar que los puertos que se dejen configurados sean los adecuados para tu máquina (más que todo para evitar tomar uno que ya esté ocupado).
+4. Guardar el .env.example como .env, y aquí se debe garantizar que los puertos que se dejen configurados sean los adecuados para tu máquina (más que todo para evitar tomar uno que ya esté ocupado).
 
 ```bash
 cp .env.example .env
