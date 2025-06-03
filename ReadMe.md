@@ -118,3 +118,5 @@ Tras esto, lo único que se debe hacer, es correr el comando:
 docker-compose up --build
 ```
 
+**Por default el docker levanta el backend en el puerto 3000 y el frontend en el puerto 8521.**
+
