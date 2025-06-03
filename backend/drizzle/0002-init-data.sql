@@ -24,16 +24,16 @@ INSERT INTO "Unidades" (nombre) VALUES
 
 -- Categorías
 INSERT INTO "Categorias" (nombre) VALUES
-  ('Desayuno'),
-  ('Almuerzo'),
-  ('Cena'),
-  ('Postre'),
-  ('Snack'),
-  ('Ensalada'),
-  ('Sopa'),
-  ('Bebida'),
-  ('Postre Vegano'),
-  ('Entrada');
+  ('Plato Principal'),
+  ('Aperitivo'),
+  ('Comida Rapida'),
+  ('Comida para Niños'),
+  ('Comida para Veganos'),
+  ('Comida para Celíacos'),
+  ('Bufet'),
+  ('Comida para Diabeticos'),
+  ('Comida Light'),
+  ('Comida para Deportistas');
 
 
 -- Alergias
